@@ -34,8 +34,8 @@ Helix Player to odtwarzacz multimediów Helix Community z otwartymi
 %setup -q -n hxplay-%{version}
 
 %build
-echo 'SetSDKPath("oggvorbissdk", "%{_prefix}")' > %{tmpdir}/buildrc
-export BUILDRC=%{tmpdir}/buildrc
+echo 'SetSDKPath("oggvorbissdk", "%{_prefix}")' > buildrc
+export BUILDRC=`pwd`/buildrc
 
 %{__make}
 
