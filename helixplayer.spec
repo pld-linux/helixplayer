@@ -1,5 +1,6 @@
 # TODO:
 #  - check why do the hxplay.{png,desktop} files mysteriously disappear
+#  - use system libpng, libjpeg, bzip2, zlib and maybe expat
 Summary:	The Helix Player - Helix Community's open source media player for consumers
 Summary(pl):	Helix Player - otwarty odtwarzacz multimediów Helix Community dla u¿ytkowników
 Name:		helixplayer
@@ -9,11 +10,12 @@ License:	GPL
 Group:		Applications/Multimedia
 Source0:	https://helixcommunity.org/download.php/634/hxplay-%{version}.tar.bz2
 # Source0-md5:	ca07ed001aae3eca6e5589c9313774cc
+Patch0:		%{name}-system-libs.patch
 URL:		https://player.helixcommunity.org/
 BuildRequires:	gtk+2-devel
-BuildRequires:	libogg-static
-BuildRequires:	libtheora-static
-BuildRequires:	libvorbis-static
+BuildRequires:	libogg-devel
+BuildRequires:	libtheora-devel
+BuildRequires:	libvorbis-devel
 BuildRequires:	pkgconfig
 BuildRequires:	python
 BuildRequires:	python-modules
@@ -32,6 +34,7 @@ Helix Player to odtwarzacz multimediów Helix Community z otwartymi
 
 %prep
 %setup -q -n hxplay-%{version}
+%patch0 -p1
 
 %build
 echo 'SetSDKPath("oggvorbissdk", "%{_prefix}")' > buildrc
