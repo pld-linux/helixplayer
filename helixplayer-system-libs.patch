@@ -29,8 +29,8 @@
 -project.AddLibraries(os.path.join(GetSDKPath("oggvorbissdk"), "lib", "libvorbis.a"))
 +project.AddSystemLibraries("ogg")
 +project.AddSystemLibraries("vorbis")
---- hxplay-1.0.1/build/build/BIF/build.bif.orig	2004-09-27 23:57:27.000000000 +0200
-+++ hxplay-1.0.1/build/build/BIF/build.bif	2004-11-20 23:11:50.721370496 +0100
+--- hxplay-1.0.3/build/build/BIF/build.bif.orig	2005-03-02 22:25:07.000000000 +0100
++++ hxplay-1.0.3/build/build/BIF/build.bif	2005-03-04 21:17:25.386628136 +0100
 @@ -895,7 +895,7 @@
      
        <dependlist>
@@ -51,8 +51,8 @@
  
 -    <!-- COMMON_IMPORT_BZIP2 -->
 -    <module id="common_import_bzip2" name="common/import/bzip2" group="core">
--      <cvs root="helix"/>
--      <cvstag id="hxclient_1_4_2_neptunex" type="branch"/>
+-      <location file="/home/build/build/bif-cvs/helix/2005%2f03%2f01%2015%253a18%253a21/client/build/BIF/hxclient_1_4_3_neptunex.bif" line="0"/>
+-      <cvstag id="hxclient_1_4_3_neptunex" type="branch"/>
 -    
 -    
 -      <includeplatforms>
@@ -63,15 +63,15 @@
 -
      <!-- COMMON_IMPORT_EXPAT -->
      <module id="common_import_expat" name="common/import/expat" group="core">
-       <cvs root="helix"/>
+       <location file="/home/build/build/bif-cvs/helix/2005%2f03%2f01%2015%253a18%253a21/client/build/BIF/hxclient_1_4_3_neptunex.bif" line="0"/>
 @@ -1128,18 +1116,6 @@
      
      </module>
  
 -    <!-- COMMON_IMPORT_ZLIB -->
 -    <module id="common_import_zlib" name="common/import/zlib" group="core">
--      <cvs root="helix"/>
--      <cvstag id="hxclient_1_4_2_neptunex" type="branch"/>
+-      <location file="/home/build/build/bif-cvs/helix/2005%2f03%2f01%2015%253a18%253a21/client/build/BIF/hxclient_1_4_3_neptunex.bif" line="0"/>
+-      <cvstag id="hxclient_1_4_3_neptunex" type="branch"/>
 -    
 -    
 -      <includeplatforms>
@@ -82,8 +82,8 @@
 -
      <!-- COMMON_INCLUDE -->
      <module id="common_include" name="common/include" group="core">
-       <cvs root="helix"/>
-@@ -2330,7 +2306,7 @@
+       <location file="/home/build/build/bif-cvs/helix/2005%2f03%2f01%2015%253a18%253a21/client/build/BIF/hxclient_1_4_3_neptunex.bif" line="0"/>
+@@ -2331,7 +2307,7 @@
      
        <dependlist>
          common_runtime common_dbgtool common_util common_system common_container
@@ -92,7 +92,7 @@
          datatype_rm_common datatype_common_util datatype_image_common datatype_image_jpg_import_jpeg-6b datatype_dist_flash_common
          datatype_dist_flash_renderer
        </dependlist>
-@@ -2381,9 +2357,9 @@
+@@ -2378,9 +2354,9 @@
      
        <dependlist>
          common_runtime common_util common_container common_dbgtool common_system
@@ -104,7 +104,7 @@
          datatype_image_png_renderer datatype_image_realpix_codec_jpg datatype_image_realpix_codec_gif datatype_image_realpix_codec_png datatype_image_realpix_fileformat
          datatype_image_realpix_renderer datatype_image_wbmp_common datatype_image_wbmp_fileformat datatype_image_wbmp_renderer
        </dependlist>
-@@ -2552,7 +2528,7 @@
+@@ -2549,7 +2525,7 @@
      
        <source_dependlist>
          common_include common_container common_dbgtool common_util common_runtime
@@ -113,7 +113,7 @@
        </source_dependlist>
      </module>
  
-@@ -2629,7 +2605,7 @@
+@@ -2626,7 +2602,7 @@
      
        <dependlist>
          common_runtime common_util common_dbgtool common_container common_system
@@ -122,7 +122,7 @@
        </dependlist>
        <source_dependlist>
          common_include client_include
-@@ -2746,7 +2710,7 @@
+@@ -2743,7 +2719,7 @@
        </includeplatforms>
      
        <dependlist>
@@ -131,7 +131,7 @@
        </dependlist>
      </module>
  
-@@ -2761,8 +2725,7 @@
+@@ -2758,8 +2734,7 @@
        </includeplatforms>
      
        <source_dependlist>
@@ -141,7 +141,7 @@
        </source_dependlist>
      </module>
  
-@@ -2783,28 +2746,13 @@
+@@ -2780,28 +2755,13 @@
      
        <dependlist>
          common_runtime common_system common_util common_container common_dbgtool
@@ -155,8 +155,8 @@
  
 -    <!-- DATATYPE_IMAGE_PNG_IMPORT_LIBPNG -->
 -    <module id="datatype_image_png_import_libpng" name="datatype/image/png/import/libpng" group="core">
--      <cvs root="helix"/>
--      <cvstag id="hxclient_1_4_2_neptunex" type="branch"/>
+-      <location file="/home/build/build/bif-cvs/helix/2005%2f03%2f01%2015%253a18%253a21/client/build/BIF/hxclient_1_4_3_neptunex.bif" line="0"/>
+-      <cvstag id="hxclient_1_4_3_neptunex" type="branch"/>
 -    
 -    
 -      <includeplatforms>
@@ -170,8 +170,8 @@
 -
      <!-- DATATYPE_IMAGE_PNG_RENDERER -->
      <module id="datatype_image_png_renderer" name="datatype/image/png/renderer" group="core">
-       <cvs root="helix"/>
-@@ -2821,8 +2769,8 @@
+       <location file="/home/build/build/bif-cvs/helix/2005%2f03%2f01%2015%253a18%253a21/client/build/BIF/hxclient_1_4_3_neptunex.bif" line="0"/>
+@@ -2818,8 +2778,8 @@
        </excludeprofiles>
      
        <dependlist>
@@ -182,7 +182,7 @@
        </dependlist>
        <source_dependlist>
          common_include client_include common_system
-@@ -2924,8 +2872,7 @@
+@@ -2921,8 +2881,7 @@
      
        <dependlist>
          common_runtime common_system common_system common_util common_container
@@ -192,7 +192,7 @@
        </dependlist>
        <source_dependlist>
          common_include client_include
-@@ -5008,7 +4955,7 @@
+@@ -4989,7 +4948,7 @@
      
        <dependlist>
          common_container common_util common_system common_runtime common_dbgtool
@@ -201,7 +201,7 @@
        </dependlist>
        <source_dependlist>
          common_include
-@@ -5181,7 +5128,7 @@
+@@ -5162,7 +5121,7 @@
      
      
        <dependlist>
@@ -210,7 +210,7 @@
        </dependlist>
        <source_dependlist>
          common_runtime common_system common_container common_dbgtool common_util
-@@ -6070,7 +6017,7 @@
+@@ -6062,7 +6021,7 @@
        </dependlist>
        <source_dependlist>
          common_include common_runtime common_util common_netio common_import_stlport
@@ -219,7 +219,7 @@
          client_netwksvc client_common_netio server_include server_protocol_sap server_engine_context
          server_common_util server_common_netio protocol_sdp
        </source_dependlist>
-@@ -6769,7 +6716,7 @@
+@@ -6761,7 +6720,7 @@
      
        <dependlist>
          common_dbgtool common_container common_system common_util common_netio
@@ -228,7 +228,7 @@
          client_common_netio protocol_common_util protocol_http producersdk_common_util producersdk_common_logutil
          producersdk_common_system producersdk_plugins_util producersdk_common_context
        </dependlist>
-@@ -8064,7 +8011,7 @@
+@@ -8056,7 +8015,7 @@
          server_common_util server_common_netio server_common_struct server_protocol_http server_qos_core
          server_qos_session server_qos_transport server_capex protocol_http protocol_rtsp
          protocol_sdp protocol_transport_common_system protocol_transport_rtp protocol_common_util common_lang_xml
@@ -237,7 +237,7 @@
          common_container common_util common_runtime
        </dependlist>
        <source_dependlist>
-@@ -8091,7 +8038,7 @@
+@@ -8083,7 +8042,7 @@
          server_common_netio server_common_struct server_protocol_http server_qos_core server_qos_session
          server_qos_transport server_capex protocol_http protocol_rtsp protocol_sdp
          protocol_transport_common_system protocol_transport_rtp protocol_common_util common_lang_xml common_dbgtool
@@ -246,7 +246,7 @@
          common_util common_runtime
        </dependlist>
        <source_dependlist>
-@@ -8154,7 +8101,7 @@
+@@ -8146,7 +8105,7 @@
          server_engine_session server_engine_dataflow server_engine_netio server_common_util server_common_netio
          server_common_struct server_protocol_http server_qos_core server_qos_transport server_qos_session
          protocol_http protocol_rtsp protocol_sdp protocol_transport_common_system protocol_transport_rtp
@@ -255,7 +255,7 @@
          common_netio common_system common_container common_util common_runtime
        </dependlist>
        <source_dependlist>
-@@ -8422,7 +8369,7 @@
+@@ -8414,7 +8373,7 @@
      
        <source_dependlist>
          common_include common_system common_util common_container common_dbgtool
@@ -264,7 +264,7 @@
        </source_dependlist>
      </module>
  
-@@ -8650,7 +8597,7 @@
+@@ -8642,7 +8601,7 @@
      
        <source_dependlist>
          common_include common_runtime common_container common_util common_netio
@@ -273,7 +273,7 @@
          server_common_util server_common_netio server_include
        </source_dependlist>
      </module>
-@@ -9241,7 +9188,7 @@
+@@ -9233,7 +9192,7 @@
      
        <dependlist>
          server_installer_common_util server_installer_common_hxarchive server_installer_common_uninstall server_installer_common common_runtime
