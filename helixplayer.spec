@@ -1,12 +1,11 @@
 # TODO:
 #  - check why do the hxplay.{png,desktop} files mysteriously disappear
-#  - use system libpng, libjpeg, bzip2, zlib and maybe expat
 Summary:	The Helix Player - Helix Community's open source media player for consumers
 Summary(pl):	Helix Player - otwarty odtwarzacz multimediów Helix Community dla u¿ytkowników
 Name:		helixplayer
 Version:	1.0.1
 Release:	0.1
-License:	GPL
+License:	RPSL or GPL v2+
 Group:		Applications/Multimedia
 Source0:	https://helixcommunity.org/download.php/634/hxplay-%{version}.tar.bz2
 # Source0-md5:	ca07ed001aae3eca6e5589c9313774cc
@@ -15,12 +14,14 @@ Patch1:		%{name}-morearchs.patch
 URL:		https://player.helixcommunity.org/
 BuildRequires:	gtk+2-devel
 BuildRequires:	libogg-devel
+BuildRequires:	libpng-devel >= 2:1.2.5
 BuildRequires:	libtheora-devel
 BuildRequires:	libvorbis-devel
 BuildRequires:	pkgconfig
 BuildRequires:	python
 BuildRequires:	python-modules
 BuildRequires:	sed >= 4.0
+BuildRequires:	zlib-devel >= 1.1.4
 Requires:	gtk+2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -38,6 +39,11 @@ Helix Player to odtwarzacz multimediów Helix Community z otwartymi
 %setup -q -n hxplay-%{version}
 %patch0 -p1
 %patch1 -p1
+
+# expat is modified (based on mozilla?)
+# libjpeg is compiled with different config (BGRx instead of RGB)
+# so only these can be replaced by system ones
+rm -rf common/import/{bzip2,zlib} datatype/image/png/import/libpng
 
 sed -i -e "s/'gcc'/'%{__cc}'/;s/'g++'/'%{__cxx}'/;s/'-O2'/'%{rpmcflags}'/" build/umakecf/gcc.cf
 
