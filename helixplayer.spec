@@ -1,14 +1,15 @@
 # TODO:
-#  - check why do the hxplay.{png,desktop} files mysteriously disappear
+#  - hxplay.desktop requires patch
 Summary:	The Helix Player - Helix Community's open source media player for consumers
 Summary(pl):	Helix Player - otwarty odtwarzacz multimediów Helix Community dla u¿ytkowników
 Name:		helixplayer
-Version:	1.0.2
+Version:	1.0.3
 Release:	0.1
 License:	RPSL or GPL v2+
 Group:		Applications/Multimedia
-Source0:	https://helixcommunity.org/download.php/634/hxplay-%{version}.tar.bz2
-# Source0-md5:	ca07ed001aae3eca6e5589c9313774cc
+#Source0Download: https://helixcommunity.org/project/showfiles.php?group_id=154
+Source0:	https://helixcommunity.org/download.php/970/hxplay-%{version}.tar.bz2
+# Source0-md5:	f527b3d712050578678b692b13ff0792
 Patch0:		%{name}-system-libs.patch
 Patch1:		%{name}-morearchs.patch
 URL:		https://player.helixcommunity.org/
@@ -36,9 +37,7 @@ Helix Player to odtwarzacz multimediów Helix Community z otwartymi
 ¼ród³ami przeznaczony dla u¿ytkowników koñcowych.
 
 %prep
-#%setup -q -n hxplay-%{version}
-# Don't ask why the hell...
-%setup -q -n hxplay-1.0.1
+%setup -q -n hxplay-%{version}
 %patch0 -p1
 %patch1 -p1
 
@@ -55,7 +54,7 @@ export BUILDRC=`pwd`/buildrc
 export BUILD_ROOT=`pwd`/build
 PATH="$PATH:`pwd`/build/bin"
 python build/bin/build \
-	-m bingo-gold \
+	-m hxplay_gtk_release \
 	-P helix-client-all-defines-free \
 	%{!?debug:-t release} \
 	player_all
@@ -63,11 +62,12 @@ python build/bin/build \
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_helixplayerdir},%{_pixmapsdir},%{_desktopdir},%{_bindir}}
+
 cp -a player/installer/archive/temp/* $RPM_BUILD_ROOT%{_helixplayerdir}
 rm -rf $RPM_BUILD_ROOT%{_helixplayerdir}/Bin
 rm -rf $RPM_BUILD_ROOT%{_helixplayerdir}/postinst
-#install player/installer/archive/temp/share/hxplay.desktop $RPM_BUILD_ROOT%{_desktopdir}
-#install player/installer/archive/temp/share/hxplay.png $RPM_BUILD_ROOT%{_pixmapsdir}
+install player/installer/archive/temp/share/hxplay.desktop $RPM_BUILD_ROOT%{_desktopdir}
+install player/installer/archive/temp/share/hxplay.png $RPM_BUILD_ROOT%{_pixmapsdir}
 install -d $RPM_BUILD_ROOT%{_libdir}/mozilla/plugins
 ln -sf ../../%{name}/mozilla/nphelix.so $RPM_BUILD_ROOT%{_libdir}/mozilla/plugins/nphelix.so
 ln -sf ../../%{name}/mozilla/nphelix.xpt $RPM_BUILD_ROOT%{_libdir}/mozilla/plugins/nphelix.xpt
