@@ -87,14 +87,10 @@ rm -rf $RPM_BUILD_ROOT
 #%{_pixmapsdir}/hxplay.png
 %attr(755,root,root) %{_helixplayerdir}/hxplay
 %attr(755,root,root) %{_helixplayerdir}/hxplay.bin
-%{_helixplayerdir}/codecs
-%attr(755,root,root) %{_helixplayerdir}/codecs/*
-%{_helixplayerdir}/common
-%attr(755,root,root) %{_helixplayerdir}/common/*
-%{_helixplayerdir}/lib
-%attr(755,root,root) %{_helixplayerdir}/lib/*
-%{_helixplayerdir}/mozilla
-%attr(755,root,root) %{_helixplayerdir}/mozilla/*
+%attr(755,root,root) %{_helixplayerdir}/codecs
+%attr(755,root,root) %{_helixplayerdir}/common
+%attr(755,root,root) %{_helixplayerdir}/lib
+%attr(755,root,root) %{_helixplayerdir}/mozilla
 %attr(755,root,root) %{_helixplayerdir}/plugins
 %{_helixplayerdir}/share
 %{_helixplayerdir}/README
