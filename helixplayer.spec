@@ -11,6 +11,7 @@ Group:		Applications/Multimedia
 Source0:	https://helixcommunity.org/download.php/634/hxplay-%{version}.tar.bz2
 # Source0-md5:	ca07ed001aae3eca6e5589c9313774cc
 Patch0:		%{name}-system-libs.patch
+Patch1:		%{name}-morearchs.patch
 URL:		https://player.helixcommunity.org/
 BuildRequires:	gtk+2-devel
 BuildRequires:	libogg-devel
@@ -19,6 +20,7 @@ BuildRequires:	libvorbis-devel
 BuildRequires:	pkgconfig
 BuildRequires:	python
 BuildRequires:	python-modules
+BuildRequires:	sed >= 4.0
 Requires:	gtk+2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -35,12 +37,20 @@ Helix Player to odtwarzacz multimediów Helix Community z otwartymi
 %prep
 %setup -q -n hxplay-%{version}
 %patch0 -p1
+%patch1 -p1
+
+sed -i -e "s/'gcc'/'%{__cc}'/;s/'g++'/'%{__cxx}'/;s/'-O2'/'%{rpmcflags}'/" build/umakecf/gcc.cf
 
 %build
 echo 'SetSDKPath("oggvorbissdk", "%{_prefix}")' > buildrc
 export BUILDRC=`pwd`/buildrc
-
-%{__make}
+export BUILD_ROOT=`pwd`/build
+PATH="$PATH:`pwd`/build/bin"
+python build/bin/build \
+	-m bingo-gold \
+	-P helix-client-all-defines-free \
+	%{!?debug:-t release} \
+	player_all
 
 %install
 rm -rf $RPM_BUILD_ROOT
