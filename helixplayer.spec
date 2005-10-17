@@ -3,13 +3,13 @@
 Summary:	The Helix Player - Helix Community's open source media player for consumers
 Summary(pl):	Helix Player - otwarty odtwarzacz multimediów Helix Community dla u¿ytkowników
 Name:		helixplayer
-Version:	1.0.3
+Version:	1.0.5
 Release:	0.1
 License:	RPSL or GPL v2+
 Group:		Applications/Multimedia
 #Source0Download: https://helixcommunity.org/project/showfiles.php?group_id=154
-Source0:	https://helixcommunity.org/download.php/970/hxplay-%{version}.tar.bz2
-# Source0-md5:	f527b3d712050578678b692b13ff0792
+Source0:	https://helixcommunity.org/download.php/1340/hxplay-%{version}.tar.bz2
+# Source0-md5:	fed9f474827f8ee29d9a1bb999eb0ef3
 Patch0:		%{name}-system-libs.patch
 Patch1:		%{name}-morearchs.patch
 URL:		https://player.helixcommunity.org/
@@ -23,6 +23,7 @@ BuildRequires:	python
 BuildRequires:	python-modules
 BuildRequires:	sed >= 4.0
 BuildRequires:	zlib-devel >= 1.1.4
+Provides:	helix-core
 Requires:	gtk+2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
