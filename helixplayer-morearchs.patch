@@ -40,3 +40,80 @@
  platform.cc.args["default"] = platform.cc.args["default"] + \
          " -m64 -D__amd64__"
  
+--- hxplay-1.0.5/audio/fixptutil/pub/math64.h.orig	2004-09-17 20:22:38.000000000 +0200
++++ hxplay-1.0.5/audio/fixptutil/pub/math64.h	2005-11-03 21:34:55.000000000 +0100
+@@ -124,7 +124,7 @@
+ // GCC / i386
+ ///////////////////////////////////////////////////////////////////////////////////////
+ 
+-#if defined(__GNUC__) && defined(__i386__) && !defined(_NO_GNU_AS)
++#if defined(__GNUC__) && (defined(__i386__) || defined(__x86_64__)) && !defined(_NO_GNU_AS)
+ 
+ #define HAVE_PLATFORM_MACROS
+ 
+--- hxplay-1.0.5/datatype/image/jpg/import/jpeg-6b/jmorecfg.h.orig	2003-06-18 18:17:45.000000000 +0200
++++ hxplay-1.0.5/datatype/image/jpg/import/jpeg-6b/jmorecfg.h	2005-11-03 21:47:08.000000000 +0100
+@@ -158,7 +158,7 @@
+ /* INT32 must hold at least signed 32-bit values. */
+ 
+ #ifndef XMD_H			/* X11/xmd.h correctly defines INT32 */
+-#if (defined _UNIX && (defined _ALPHA || defined _OSF1))
++#if (defined _UNIX && (defined _ALPHA || defined _LP64 || defined _OSF1))
+ typedef int INT32;
+ #else
+ typedef long INT32;
+--- hxplay-1.0.5/common/import/gecko-sdk/nspr/include/prcpucfg.h.orig	2004-12-22 21:00:40.000000000 +0100
++++ hxplay-1.0.5/common/import/gecko-sdk/nspr/include/prcpucfg.h	2005-11-03 22:03:45.000000000 +0100
+@@ -182,6 +182,52 @@
+ #define PR_BYTES_PER_WORD_LOG2  3
+ #define PR_BYTES_PER_DWORD_LOG2 3
+ 
++#elif defined(__x86_64__)
++
++#define IS_LITTLE_ENDIAN 1
++#undef  IS_BIG_ENDIAN
++#define IS_64
++
++#define PR_BYTES_PER_BYTE   1
++#define PR_BYTES_PER_SHORT  2
++#define PR_BYTES_PER_INT    4
++#define PR_BYTES_PER_INT64  8
++#define PR_BYTES_PER_LONG   8
++#define PR_BYTES_PER_FLOAT  4
++#define PR_BYTES_PER_DOUBLE 8
++#define PR_BYTES_PER_WORD   8
++#define PR_BYTES_PER_DWORD  8
++
++#define PR_BITS_PER_BYTE    8
++#define PR_BITS_PER_SHORT   16
++#define PR_BITS_PER_INT     32
++#define PR_BITS_PER_INT64   64
++#define PR_BITS_PER_LONG    64
++#define PR_BITS_PER_FLOAT   32
++#define PR_BITS_PER_DOUBLE  64
++#define PR_BITS_PER_WORD    64
++
++#define PR_BITS_PER_BYTE_LOG2   3
++#define PR_BITS_PER_SHORT_LOG2  4
++#define PR_BITS_PER_INT_LOG2    5
++#define PR_BITS_PER_INT64_LOG2  6
++#define PR_BITS_PER_LONG_LOG2   6
++#define PR_BITS_PER_FLOAT_LOG2  5
++#define PR_BITS_PER_DOUBLE_LOG2 6
++#define PR_BITS_PER_WORD_LOG2   6
++
++#define PR_ALIGN_OF_SHORT   2
++#define PR_ALIGN_OF_INT     4
++#define PR_ALIGN_OF_LONG    8
++#define PR_ALIGN_OF_INT64   8
++#define PR_ALIGN_OF_FLOAT   4
++#define PR_ALIGN_OF_DOUBLE  8
++#define PR_ALIGN_OF_POINTER 8
++#define PR_ALIGN_OF_WORD    8
++
++#define PR_BYTES_PER_WORD_LOG2  3
++#define PR_BYTES_PER_DWORD_LOG2 3
++
+ #elif defined(__mc68000__)
+ 
+ #undef  IS_LITTLE_ENDIAN
