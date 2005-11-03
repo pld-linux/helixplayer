@@ -10,3 +10,16 @@
  
  /* Increment by 1 */
  static __inline__ void
+--- hxplay-1.0.5/build/lib/sysinfo.py.orig	2005-05-11 20:39:02.000000000 +0200
++++ hxplay-1.0.5/build/lib/sysinfo.py	2005-11-03 20:47:25.000000000 +0100
+@@ -1020,6 +1020,10 @@
+         else:
+             set_platform('linux-2.2-libc6-i586')
+ 
++    ## Linux x86_64
++    elif arch == 'x86_64':
++	set_platform('linux-2.6-glibc23-amd64')
++
+     ## Linux PPC Q3
+     elif arch == 'ppc':
+         set_platform('linux-2.2-libc6-powerpc')
