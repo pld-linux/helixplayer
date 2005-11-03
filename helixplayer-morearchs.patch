@@ -23,3 +23,20 @@
      ## Linux PPC Q3
      elif arch == 'ppc':
          set_platform('linux-2.2-libc6-powerpc')
+--- hxplay-1.0.5/build/umakecf/linux-2.6-glibc23-amd64.cf.orig	2005-02-24 22:17:20.000000000 +0100
++++ hxplay-1.0.5/build/umakecf/linux-2.6-glibc23-amd64.cf	2005-11-03 21:17:00.000000000 +0100
+@@ -56,10 +56,13 @@
+ ## list of PCF files to run
+ platform.pcf_prefix_list = ["unix", "linux2", "linux-2.6-glibc23", "linux-2.6-glibc23-amd64"]
+ 
++## platform defines 
++project.AddDefines("_LITTLE_ENDIAN")
++project.AddDefines("_LONG_IS_64")
+ 
+ ## Turn on i686 ops.
+ platform.cxx.args["default"] = platform.cxx.args["default"] + \
+-        " -m64 -D__amd64__"
++        " -m64 -D__amd64__ -fno-rtti -fno-exceptions"
+ platform.cc.args["default"] = platform.cc.args["default"] + \
+         " -m64 -D__amd64__"
+ 
