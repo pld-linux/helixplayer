@@ -117,3 +117,127 @@
  #elif defined(__mc68000__)
  
  #undef  IS_LITTLE_ENDIAN
+--- hxplay-1.0.5/common/include/atomicbase.h.orig	2005-11-03 22:22:27.000000000 +0100
++++ hxplay-1.0.5/common/include/atomicbase.h	2005-11-03 23:14:46.000000000 +0100
+@@ -855,6 +855,112 @@
+  */
+ #elif defined (__alpha)
+ 
++#  ifdef __GNUC__
++
++/* Increment by 1 and return new value */
++inline INT32
++HXAtomicIncRetINT32(INT32* pNum)
++{
++    asm volatile (
++        "10:     ldl_l   $1, %0\n"          // Load-lock value into a register
++        "        addl    $1, 1, $1\n"       // Increment value
++        "        stl_c   $1, %0\n"          // Save new value into *pNum
++        "        beq     $1, 10b\n"         // Retry if sequence failed
++        : "=m" (*pNum) : "m" (*pNum) : "$1");
++    return *pNum;
++}
++
++/* Decrement by 1 and return new value */
++inline INT32
++HXAtomicDecRetINT32(INT32* pNum)
++{
++    asm volatile (
++        "10:     ldl_l   $1, %0\n"          // Load-lock value into a register
++        "        subl    $1, 1, $1\n"       // Decrement value
++        "        stl_c   $1, %0\n"          // Save new value into *pNum
++        "        beq     $1, 10b\n"         // Retry if sequence failed
++        : "=m" (*pNum) : "m" (*pNum) : "$1");
++    return *pNum;
++}
++
++/* Add n and return new value */
++inline INT32
++HXAtomicAddRetINT32(INT32* pNum, INT32 n)
++{
++    asm volatile (
++        "10:     ldl_l   $1, %0\n"          // Load-lock value into a register
++        "        addl    $1, %1, $1\n"      // Add n to value
++        "        stl_c   $1, %0\n"          // Save new value into *pNum
++        "        beq     $1, 10b\n"         // Retry if sequence failed
++        : "=m" (*pNum) : "r" (n), "m" (*pNum) : "$1");
++    return *pNum;
++}
++
++/* Subtract n and return new value */
++inline INT32
++HXAtomicSubRetINT32(INT32* pNum, INT32 n)
++{
++    asm volatile (
++        "10:     ldl_l   $1, %0\n"          // Load-lock value into a register
++        "        subl    $1, %1, $1\n"      // Subtract n from value
++        "        stl_c   $1, %0\n"          // Save new value into *pNum
++        "        beq     $1, 10b\n"         // Retry if sequence failed
++        : "=m" (*pNum) : "r" (n), "m" (*pNum) : "$1");
++}
++
++/* Increment by 1 and return new value */
++inline UINT32
++HXAtomicIncRetUINT32(UINT32* pNum)
++{
++    asm volatile (
++        "10:     ldl_l   $1, %0\n"          // Load-lock value into a register
++        "        addl    $1, 1, $1\n"       // Increment value
++        "        stl_c   $1, %0\n"          // Save new value into *pNum
++        "        beq     $1, 10b\n"         // Retry if sequence failed
++        : "=m" (*pNum) : "m" (*pNum) : "$1");
++    return *pNum;
++}
++
++/* Decrement by 1 and return new value */
++inline UINT32
++HXAtomicDecRetUINT32(UINT32* pNum)
++{
++    asm volatile (
++        "10:     ldl_l   $1, %0\n"          // Load-lock value into a register
++        "        subl    $1, 1, $1\n"       // Decrement value
++        "        stl_c   $1, %0\n"          // Save new value into *pNum
++        "        beq     $1, 10b\n"         // Retry if sequence failed
++        : "=m" (*pNum) : "m" (*pNum) : "$1");
++    return *pNum;
++}
++
++/* Add n and return new value */
++inline UINT32
++HXAtomicAddRetUINT32(UINT32* pNum, UINT32 n)
++{
++    asm volatile (
++        "10:     ldl_l   $1, %0\n"          // Load-lock value into a register
++        "        addl    $1, %1, $1\n"      // Add n to value
++        "        stl_c   $1, %0\n"          // Save new value into *pNum
++        "        beq     $1, 10b\n"         // Retry if sequence failed
++        : "=m" (*pNum) : "r" (n), "m" (*pNum) : "$1");
++    return *pNum;
++}
++
++/* Subtract n and return new value */
++inline UINT32
++HXAtomicSubRetUINT32(UINT32* pNum, UINT32 n)
++{
++    asm volatile (
++        "10:     ldl_l   $1, %0\n"          // Load-lock value into a register
++        "        subl    $1, %1, $1\n"      // Subtract n from value
++        "        stl_c   $1, %0\n"          // Save new value into *pNum
++        "        beq     $1, 10b\n"         // Retry if sequence failed
++        : "=m" (*pNum) : "r" (n), "m" (*pNum) : "$1");
++}
++
++#  else
++
+ #include <c_asm.h>
+ 
+ /* Increment by 1 and return new value */
+@@ -961,6 +1067,8 @@
+         , pNum, n);
+ }
+ 
++#  endif
++
+ #define HXAtomicIncINT32(p)    HXAtomicIncRetINT32((p))
+ #define HXAtomicDecINT32(p)    HXAtomicDecRetINT32((p))
+ #define HXAtomicAddINT32(p,n)  HXAtomicAddRetINT32((p),(n))
