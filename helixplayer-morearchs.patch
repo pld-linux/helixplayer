@@ -201,7 +201,7 @@
 +#  ifdef __GNUC__
 +
 +/* Increment by 1 and return new value */
-+inline INT32
++static inline INT32
 +HXAtomicIncRetINT32(INT32* pNum)
 +{
 +    asm volatile (
@@ -214,7 +214,7 @@
 +}
 +
 +/* Decrement by 1 and return new value */
-+inline INT32
++static inline INT32
 +HXAtomicDecRetINT32(INT32* pNum)
 +{
 +    asm volatile (
@@ -227,7 +227,7 @@
 +}
 +
 +/* Add n and return new value */
-+inline INT32
++static inline INT32
 +HXAtomicAddRetINT32(INT32* pNum, INT32 n)
 +{
 +    asm volatile (
@@ -240,7 +240,7 @@
 +}
 +
 +/* Subtract n and return new value */
-+inline INT32
++static inline INT32
 +HXAtomicSubRetINT32(INT32* pNum, INT32 n)
 +{
 +    asm volatile (
@@ -253,7 +253,7 @@
 +}
 +
 +/* Increment by 1 and return new value */
-+inline UINT32
++static inline UINT32
 +HXAtomicIncRetUINT32(UINT32* pNum)
 +{
 +    asm volatile (
@@ -266,7 +266,7 @@
 +}
 +
 +/* Decrement by 1 and return new value */
-+inline UINT32
++static inline UINT32
 +HXAtomicDecRetUINT32(UINT32* pNum)
 +{
 +    asm volatile (
@@ -279,7 +279,7 @@
 +}
 +
 +/* Add n and return new value */
-+inline UINT32
++static inline UINT32
 +HXAtomicAddRetUINT32(UINT32* pNum, UINT32 n)
 +{
 +    asm volatile (
@@ -292,7 +292,7 @@
 +}
 +
 +/* Subtract n and return new value */
-+inline UINT32
++static inline UINT32
 +HXAtomicSubRetUINT32(UINT32* pNum, UINT32 n)
 +{
 +    asm volatile (
