@@ -26,7 +26,7 @@
      id = 'linux-2.2-libc6-powerpc',
      platform = 'linux2',
      arch = 'powerpc',
-@@ -1015,11 +1022,15 @@
+@@ -1015,14 +1022,24 @@
          gcc_version=os.popen("gcc -dumpversion").read()
          gcc_version=string.strip(gcc_version)
  
@@ -42,7 +42,17 @@
 +
      ## Linux PPC Q3
      elif arch == 'ppc':
-         set_platform('linux-2.2-libc6-powerpc')
+-        set_platform('linux-2.2-libc6-powerpc')
++        gcc_version=os.popen("gcc -dumpversion").read()
++        gcc_version=string.strip(gcc_version)
++
++        if gcc_version[0] == "3" or gcc_version[0] == '4':
++            set_platform('linux-2.2-libc6-gcc32-powerpc')
++        else:
++            set_platform('linux-2.2-libc6-powerpc')
+         
+     ## Linux/Redhat SPARC
+     elif arch == 'sparc64' or arch == 'sparc':
 @@ -1030,7 +1041,13 @@
  
      ## Linux Alpha
