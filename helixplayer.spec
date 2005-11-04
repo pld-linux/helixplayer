@@ -73,7 +73,7 @@ install -d $RPM_BUILD_ROOT%{_libdir}/mozilla/plugins
 ln -sf ../../%{name}/mozilla/nphelix.so $RPM_BUILD_ROOT%{_libdir}/mozilla/plugins/nphelix.so
 ln -sf ../../%{name}/mozilla/nphelix.xpt $RPM_BUILD_ROOT%{_libdir}/mozilla/plugins/nphelix.xpt
 sed -i -e "s%#[ \t]*HELIX_LIBS[ \t]*=.*%HELIX_LIBS=%{_helixplayerdir} ; export HELIX_LIBS%" $RPM_BUILD_ROOT%{_helixplayerdir}/hxplay
-ln -sf ../lib/%{name}/hxplay $RPM_BUILD_ROOT%{_bindir}/hxplay
+ln -sf %{_libdir}/%{name}/hxplay $RPM_BUILD_ROOT%{_bindir}/hxplay
 
 %clean
 rm -rf $RPM_BUILD_ROOT
