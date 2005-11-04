@@ -51,6 +51,46 @@
  
  #define HAVE_PLATFORM_MACROS
  
+@@ -288,6 +288,39 @@
+ 
+ #endif
+ 
++/* generic for LP64 platforms */
++#if defined(__alpha__) || defined(__ia64__)
++static inline int MulDiv64(int a, int b, int c)
++{
++	long t = (long)((long)a * (long)b) ;
++	return (int)(t / c) ;
++}
++/* Compute (a * b) >> 32, using 64-bit intermediate result */
++static inline int MulShift32(int a, int b)
++{
++	long res ;
++	res = (long)((long)a * (long)b);
++	return (res>>32);
++}
++
++/* Compute (a * b) >> 31, using 64-bit intermediate result */
++static inline int MulShift31(int a, int b)
++{
++	long res ;
++	res = (long)((long)a * (long)b);
++	return (res>>31);
++}
++
++/* Compute (a * b) >> 30, using 64-bit intermediate result */
++static inline int MulShift30(int a, int b)
++{
++	long res ;
++	res = (long)((long)a * (long)b);
++	return (res>>30);
++}
++
++#endif
++
+ ///////////////////////////////////////////////////////////////////////////////////////
+ // Codewarrior / PowerPC
+ ///////////////////////////////////////////////////////////////////////////////////////
 --- hxplay-1.0.5/datatype/image/jpg/import/jpeg-6b/jmorecfg.h.orig	2003-06-18 18:17:45.000000000 +0200
 +++ hxplay-1.0.5/datatype/image/jpg/import/jpeg-6b/jmorecfg.h	2005-11-03 21:47:08.000000000 +0100
 @@ -158,7 +158,7 @@
