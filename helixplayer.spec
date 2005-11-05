@@ -2,7 +2,7 @@ Summary:	The Helix Player - Helix Community's open source media player for consu
 Summary(pl):	Helix Player - otwarty odtwarzacz multimediów Helix Community dla u¿ytkowników
 Name:		helixplayer
 Version:	1.0.5
-Release:	0.1
+Release:	1
 License:	RPSL or GPL v2+
 Group:		Applications/Multimedia
 #Source0Download: https://helixcommunity.org/project/showfiles.php?group_id=154
