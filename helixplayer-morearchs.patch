@@ -1,15 +1,3 @@
---- hxplay-1.0.1/common/include/atomicbase.h.orig	2004-07-09 03:45:08.000000000 +0200
-+++ hxplay-1.0.1/common/include/atomicbase.h	2004-11-18 08:30:02.074183024 +0100
-@@ -547,7 +547,8 @@
- #elif defined(__GNUC__) && !defined(_OPENBSD) && \
-       (__GNUC__>2 || (__GNUC__==2 && __GNUC_MINOR__>=95)) && \
-       ( defined (__i486__) || defined (__i586__) || defined (__i686__) || \
--        defined (__pentium__) || defined (__pentiumpro__))
-+        defined (__pentium__) || defined (__pentiumpro__) || defined (__pentium4__) || \
-+	defined (__athlon__))
- 
- /* Increment by 1 */
- static __inline__ void
 --- hxplay-1.0.5/build/lib/sysinfo.py.orig	2005-05-11 20:39:02.000000000 +0200
 +++ hxplay-1.0.5/build/lib/sysinfo.py	2005-11-03 20:47:25.000000000 +0100
 @@ -314,6 +314,13 @@
@@ -96,6 +84,15 @@
  
  #define HAVE_PLATFORM_MACROS
  
+@@ -250,7 +250,7 @@
+ #endif
+ #endif // defined(__sparc)
+ 
+-#if (defined(__SVR4) && defined(__i386) && (defined(_NO_GNU_AS) || !defined(__GNUC__)) )
++#if (defined(__SVR4) && defined(__i386) && (defined(_NO_GNU_AS) || !defined(__GNUC__)) ) || (defined(__sparc__))
+ /* No 64bit, no asm provided in some other file..
+  * need normal funcs for sun forte CC + 386 
+  * However... forte's inline assembly for MulShift32 is just as good
 @@ -288,6 +288,39 @@
  
  #endif
@@ -204,6 +201,110 @@
  #undef  IS_LITTLE_ENDIAN
 --- hxplay-1.0.5/common/include/atomicbase.h.orig	2005-11-03 22:22:27.000000000 +0100
 +++ hxplay-1.0.5/common/include/atomicbase.h	2005-11-03 23:14:46.000000000 +0100
+@@ -179,7 +179,7 @@
+ #elif defined (__sparc__) && defined (__GNUC__)
+ 
+ /* Increment by 1 */
+-inline void
++static inline void
+ HXAtomicIncUINT32(UINT32* pNum)
+ {
+     __asm__ __volatile__(\
+@@ -200,7 +200,7 @@
+ }
+ 
+ /* Decrement by 1 */
+-inline void
++static inline void
+ HXAtomicDecUINT32(UINT32* pNum)
+ {
+     __asm__ __volatile__(
+@@ -221,7 +221,7 @@
+ }
+ 
+ /* Increment by 1 and return new value */
+-inline UINT32
++static inline UINT32
+ HXAtomicIncRetUINT32(UINT32* pNum)
+ {
+     volatile UINT32 ulRet;
+@@ -245,7 +245,7 @@
+ }
+ 
+ /* Decrement by 1 and return new value */
+-inline UINT32
++static inline UINT32
+ HXAtomicDecRetUINT32(UINT32* pNum)
+ {   volatile UINT32 ulRet;
+     __asm__ __volatile__(
+@@ -268,7 +268,7 @@
+ }
+ 
+ /* Add n */
+-inline void
++static inline void
+ HXAtomicAddUINT32(UINT32* pNum, UINT32 ulNum)
+ {
+     __asm__ __volatile__(
+@@ -290,7 +290,7 @@
+ }
+ 
+ /* Subtract n */
+-inline void
++static inline void
+ HXAtomicSubUINT32(UINT32* pNum, UINT32 ulNum)
+ {
+     __asm__ __volatile__(
+@@ -312,7 +312,7 @@
+ }
+ 
+ /* Add n and return new value */
+-inline UINT32
++static inline UINT32
+ HXAtomicAddRetUINT32(UINT32* pNum, UINT32 ulNum)
+ {
+     volatile UINT32 ulRet; \
+@@ -337,7 +337,7 @@
+ }
+ 
+ /* Subtract n and return new value */
+-inline UINT32
++static inline UINT32
+ HXAtomicSubRetUINT32(UINT32* pNum, UINT32 ulNum)
+ {   volatile UINT32 ulRet;
+     __asm__ __volatile__(
+@@ -360,14 +360,14 @@
+         return ulRet;
+ }
+ 
+-inline void HXAtomicIncINT32(INT32* p)              { HXAtomicIncUINT32((UINT32*)p); }
+-inline void HXAtomicDecINT32(INT32* p)              { HXAtomicDecUINT32((UINT32*)p); }
+-inline void HXAtomicAddINT32(INT32* p, INT32 n)     { HXAtomicAddUINT32((UINT32*)p, (UINT32)n); }
+-inline void HXAtomicSubINT32(INT32* p, INT32 n)     { HXAtomicSubUINT32((UINT32*)p, (UINT32)n); }
+-inline INT32 HXAtomicIncRetINT32(INT32* p)          { return HXAtomicIncRetUINT32((UINT32*)p); }
+-inline INT32 HXAtomicDecRetINT32(INT32* p)          { return HXAtomicDecRetUINT32((UINT32*)p); }
+-inline INT32 HXAtomicAddRetINT32(INT32* p, INT32 n) { return HXAtomicAddRetUINT32((UINT32*)p, (UINT32)n); }
+-inline INT32 HXAtomicSubRetINT32(INT32* p, INT32 n) { return HXAtomicSubRetUINT32((UINT32*)p, (UINT32)n); }
++static inline void HXAtomicIncINT32(INT32* p)              { HXAtomicIncUINT32((UINT32*)p); }
++static inline void HXAtomicDecINT32(INT32* p)              { HXAtomicDecUINT32((UINT32*)p); }
++static inline void HXAtomicAddINT32(INT32* p, INT32 n)     { HXAtomicAddUINT32((UINT32*)p, (UINT32)n); }
++static inline void HXAtomicSubINT32(INT32* p, INT32 n)     { HXAtomicSubUINT32((UINT32*)p, (UINT32)n); }
++static inline INT32 HXAtomicIncRetINT32(INT32* p)          { return HXAtomicIncRetUINT32((UINT32*)p); }
++static inline INT32 HXAtomicDecRetINT32(INT32* p)          { return HXAtomicDecRetUINT32((UINT32*)p); }
++static inline INT32 HXAtomicAddRetINT32(INT32* p, INT32 n) { return HXAtomicAddRetUINT32((UINT32*)p, (UINT32)n); }
++static inline INT32 HXAtomicSubRetINT32(INT32* p, INT32 n) { return HXAtomicSubRetUINT32((UINT32*)p, (UINT32)n); }
+ 
+ 
+ 
+@@ -547,7 +547,7 @@
+ #elif defined(__GNUC__) && !defined(_OPENBSD) && \
+       (__GNUC__>2 || (__GNUC__==2 && __GNUC_MINOR__>=95)) && \
+       ( defined (__i486__) || defined (__i586__) || defined (__i686__) || \
+-        defined (__pentium__) || defined (__pentiumpro__))
++        defined (__pentium__) || defined (__pentiumpro__) || defined (__pentium4__) || defined (__athlon__))
+ 
+ /* Increment by 1 */
+ static __inline__ void
 @@ -855,6 +855,114 @@
   */
  #elif defined (__alpha)
@@ -403,3 +504,15 @@
 +## platform defines 
 +project.AddDefines("_ALPHA", "_LONG_IS_64", "_LITTLE_ENDIAN", "_STRICT_ALIGNMENT")
 +
+--- hxplay-1.0.5/build/umakecf/linux-2.2-libc6-sparc.cf.orig	2004-07-07 22:00:05.000000000 +0000
++++ hxplay-1.0.5/build/umakecf/linux-2.2-libc6-sparc.cf	2005-11-05 04:38:14.818519744 +0000
+@@ -63,7 +63,8 @@
+ ## make GCC 2.95.x permissive so it won't barf on our code
+ platform.cc.args['default'] = '--permissive -pipe -fsigned-char'
+ platform.cxx.args['default'] = '--permissive -pipe -fsigned-char'
+-platform.link.ldcmd = "g++"
+ 
+ DisableRTTIIfNecessary()
+ 
++project.AddSystemLibraries("stdc++")
++exec_config_file("linux-linker.cf")
