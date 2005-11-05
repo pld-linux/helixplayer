@@ -24,6 +24,8 @@ BuildRequires:	sed >= 4.0
 BuildRequires:	zlib-devel >= 1.1.4
 Provides:	helix-core
 Requires:	gtk+2
+# i386 lacks atomic add instruction
+ExcludeArch:	i386
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_helixplayerdir %{_libdir}/%{name}
