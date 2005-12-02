@@ -516,3 +516,17 @@
  
 +project.AddSystemLibraries("stdc++")
 +exec_config_file("linux-linker.cf")
+--- hxplay-1.0.6/build/umakecf/linux-2.2-libc6-gcc32-powerpc.cf.orig	2005-06-20 17:00:07.000000000 +0000
++++ hxplay-1.0.6/build/umakecf/linux-2.2-libc6-gcc32-powerpc.cf	2005-12-02 23:11:36.194874520 +0000
+@@ -107,9 +107,9 @@
+         ccmajor=0
+ 
+     try:
+-        ccxmajor=int(string.split(ccxver,".",1))
++        cxxmajor=int(string.split(cxxver,".",1))
+     except:
+-        ccxmajor=0
++        cxxmajor=0
+         
+     w=[]
+     if ccmajor < 3:
