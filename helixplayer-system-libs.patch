@@ -1,5 +1,5 @@
---- hxplay-1.0.5/build/build/BIF/build.bif.orig	2005-05-14 12:03:22.000000000 +0200
-+++ hxplay-1.0.5/build/build/BIF/build.bif	2005-10-20 09:13:00.000000000 +0200
+--- hxplay-1.0.6/build/build/BIF/build.bif.orig	2005-09-16 23:39:05.000000000 +0200
++++ hxplay-1.0.6/build/build/BIF/build.bif	2005-12-02 19:22:44.626955624 +0100
 @@ -27,7 +27,7 @@
      file name with full path to the faad2 library binary.
      Note that these paths will be platform-specific.
@@ -29,7 +29,7 @@
  
 -    <!-- COMMON_IMPORT_BZIP2 -->
 -    <module id="common_import_bzip2" name="common/import/bzip2" group="core">
--      <location file="/home/build/build/bif-cvs/helix/2005%2f05%2f13%2020%253a58%253a33/client/build/BIF/hxclient_1_4_3_neptunex.bif" line="0"/>
+-      <location file="/home/build/build/bif-cvs/helix/2005%2f09%2f16%2013%253a39%253a57/client/build/BIF/hxclient_1_4_3_neptunex.bif" line="0"/>
 -      <cvstag id="hxclient_1_4_3_neptunex" type="branch"/>
 -    
 -    
@@ -41,14 +41,14 @@
 -
      <!-- COMMON_IMPORT_EXPAT -->
      <module id="common_import_expat" name="common/import/expat" group="core">
-       <location file="/home/build/build/bif-cvs/helix/2005%2f05%2f13%2020%253a58%253a33/client/build/BIF/hxclient_1_4_3_neptunex.bif" line="0"/>
+       <location file="/home/build/build/bif-cvs/helix/2005%2f09%2f16%2013%253a39%253a57/client/build/BIF/hxclient_1_4_3_neptunex.bif" line="0"/>
 @@ -1128,18 +1116,6 @@
      
      </module>
  
 -    <!-- COMMON_IMPORT_ZLIB -->
 -    <module id="common_import_zlib" name="common/import/zlib" group="core">
--      <location file="/home/build/build/bif-cvs/helix/2005%2f05%2f13%2020%253a58%253a33/client/build/BIF/hxclient_1_4_3_neptunex.bif" line="0"/>
+-      <location file="/home/build/build/bif-cvs/helix/2005%2f09%2f16%2013%253a39%253a57/client/build/BIF/hxclient_1_4_3_neptunex.bif" line="0"/>
 -      <cvstag id="hxclient_1_4_3_neptunex" type="branch"/>
 -    
 -    
@@ -60,7 +60,7 @@
 -
      <!-- COMMON_INCLUDE -->
      <module id="common_include" name="common/include" group="core">
-       <location file="/home/build/build/bif-cvs/helix/2005%2f05%2f13%2020%253a58%253a33/client/build/BIF/hxclient_1_4_3_neptunex.bif" line="0"/>
+       <location file="/home/build/build/bif-cvs/helix/2005%2f09%2f16%2013%253a39%253a57/client/build/BIF/hxclient_1_4_3_neptunex.bif" line="0"/>
 @@ -2331,7 +2307,7 @@
      
        <dependlist>
@@ -124,7 +124,7 @@
        <dependlist>
          common_runtime common_system common_util common_container common_dbgtool
 -        common_import_zlib datatype_image_common datatype_image_png_common datatype_image_png_import_libpng
-+	datatype_image_common datatype_image_png_common
++        datatype_image_common datatype_image_png_common
        </dependlist>
        <source_dependlist>
          common_include client_resource
@@ -133,7 +133,7 @@
  
 -    <!-- DATATYPE_IMAGE_PNG_IMPORT_LIBPNG -->
 -    <module id="datatype_image_png_import_libpng" name="datatype/image/png/import/libpng" group="core">
--      <location file="/home/build/build/bif-cvs/helix/2005%2f05%2f13%2020%253a58%253a33/client/build/BIF/hxclient_1_4_3_neptunex.bif" line="0"/>
+-      <location file="/home/build/build/bif-cvs/helix/2005%2f09%2f16%2013%253a39%253a57/client/build/BIF/hxclient_1_4_3_neptunex.bif" line="0"/>
 -      <cvstag id="hxclient_1_4_3_neptunex" type="branch"/>
 -    
 -    
@@ -148,7 +148,7 @@
 -
      <!-- DATATYPE_IMAGE_PNG_RENDERER -->
      <module id="datatype_image_png_renderer" name="datatype/image/png/renderer" group="core">
-       <location file="/home/build/build/bif-cvs/helix/2005%2f05%2f13%2020%253a58%253a33/client/build/BIF/hxclient_1_4_3_neptunex.bif" line="0"/>
+       <location file="/home/build/build/bif-cvs/helix/2005%2f09%2f16%2013%253a39%253a57/client/build/BIF/hxclient_1_4_3_neptunex.bif" line="0"/>
 @@ -2818,8 +2778,7 @@
        </excludeprofiles>
      
@@ -169,7 +169,7 @@
        </dependlist>
        <source_dependlist>
          common_include client_include
-@@ -4934,7 +4892,7 @@
+@@ -4937,7 +4895,7 @@
      developers should have the following line in their .buildrc file:
      SetSDKPath("dxsdk", "/path/to/DirectXSDK")
      See BUILD_ROOT/build/doc/buildrc.html for more
@@ -178,7 +178,7 @@
        </sdk>
      
        <attribute id="no_build"/>
-@@ -4989,7 +4947,7 @@
+@@ -4992,7 +4950,7 @@
      
        <dependlist>
          common_container common_util common_system common_runtime common_dbgtool
@@ -187,7 +187,7 @@
        </dependlist>
        <source_dependlist>
          common_include
-@@ -5072,7 +5030,7 @@
+@@ -5075,7 +5033,7 @@
      developers should have the following line in their .buildrc file:
      SetSDKPath("gapi", "/path/to/GAPISDK")
      See BUILD_ROOT/build/doc/buildrc.html for more
@@ -196,7 +196,7 @@
        </sdk>
      
        <attribute id="no_build"/>
-@@ -5095,7 +5053,7 @@
+@@ -5098,7 +5056,7 @@
      developers should have the following line in their .buildrc file:
      SetSDKPath("gtk2sdk", "/path/to/gtk2sdk")
      See BUILD_ROOT/build/doc/buildrc.html for more
@@ -205,7 +205,7 @@
        </sdk>
      
        <attribute id="no_build"/>
-@@ -5162,7 +5120,7 @@
+@@ -5165,7 +5123,7 @@
      
      
        <dependlist>
@@ -214,7 +214,7 @@
        </dependlist>
        <source_dependlist>
          common_runtime common_system common_container common_dbgtool common_util
-@@ -5209,7 +5167,7 @@
+@@ -5212,7 +5170,7 @@
      SetSDKPath("mspsdk_81_include", "/path/to/ms_81_sdk/include")
      SetSDKPath("mspsdk_81_lib", "/path/to/ms_81_sdk/lib")
      See BUILD_ROOT/build/doc/buildrc.html for more
@@ -223,7 +223,7 @@
        </sdk>
      
        <attribute id="no_build"/>
-@@ -5244,7 +5202,7 @@
+@@ -5247,7 +5205,7 @@
      developers should have the following line in their .buildrc file:
      SetSDKPath("oggvorbissdk", "/path/to/oggvorbisSDK")
      See BUILD_ROOT/build/doc/buildrc.html for more
@@ -232,7 +232,7 @@
        </sdk>
      
        <attribute id="no_build"/>
-@@ -6062,7 +6020,7 @@
+@@ -6054,7 +6012,7 @@
        </dependlist>
        <source_dependlist>
          common_include common_runtime common_util common_netio common_import_stlport
@@ -241,7 +241,7 @@
          client_netwksvc client_common_netio server_include server_protocol_sap server_engine_context
          server_common_util server_common_netio protocol_sdp
        </source_dependlist>
-@@ -6761,7 +6719,7 @@
+@@ -6753,7 +6711,7 @@
      
        <dependlist>
          common_dbgtool common_container common_system common_util common_netio
@@ -250,7 +250,7 @@
          client_common_netio protocol_common_util protocol_http producersdk_common_util producersdk_common_logutil
          producersdk_common_system producersdk_plugins_util producersdk_common_context
        </dependlist>
-@@ -7588,7 +7546,7 @@
+@@ -7580,7 +7538,7 @@
      SetSDKPath("qt5sdk_include", "/path/to/QuickTime5SDK/CIncludes")
      SetSDKPath("qt5sdk_lib", "/path/to/QuickTime5SDK/Libraries")
      See BUILD_ROOT/build/doc/buildrc.html for more
@@ -259,7 +259,7 @@
        </sdk>
      
        <attribute id="no_build"/>
-@@ -8056,7 +8014,7 @@
+@@ -8048,7 +8006,7 @@
          server_common_util server_common_netio server_common_struct server_protocol_http server_qos_core
          server_qos_session server_qos_transport server_capex protocol_http protocol_rtsp
          protocol_sdp protocol_transport_common_system protocol_transport_rtp protocol_common_util common_lang_xml
@@ -268,7 +268,7 @@
          common_container common_util common_runtime
        </dependlist>
        <source_dependlist>
-@@ -8083,7 +8041,7 @@
+@@ -8075,7 +8033,7 @@
          server_common_netio server_common_struct server_protocol_http server_qos_core server_qos_session
          server_qos_transport server_capex protocol_http protocol_rtsp protocol_sdp
          protocol_transport_common_system protocol_transport_rtp protocol_common_util common_lang_xml common_dbgtool
@@ -277,7 +277,7 @@
          common_util common_runtime
        </dependlist>
        <source_dependlist>
-@@ -8146,7 +8104,7 @@
+@@ -8138,7 +8096,7 @@
          server_engine_session server_engine_dataflow server_engine_netio server_common_util server_common_netio
          server_common_struct server_protocol_http server_qos_core server_qos_transport server_qos_session
          protocol_http protocol_rtsp protocol_sdp protocol_transport_common_system protocol_transport_rtp
@@ -286,7 +286,7 @@
          common_netio common_system common_container common_util common_runtime
        </dependlist>
        <source_dependlist>
-@@ -8414,7 +8372,7 @@
+@@ -8406,7 +8364,7 @@
      
        <source_dependlist>
          common_include common_system common_util common_container common_dbgtool
@@ -295,7 +295,7 @@
        </source_dependlist>
      </module>
  
-@@ -8642,7 +8600,7 @@
+@@ -8634,7 +8592,7 @@
      
        <source_dependlist>
          common_include common_runtime common_container common_util common_netio
@@ -304,7 +304,7 @@
          server_common_util server_common_netio server_include
        </source_dependlist>
      </module>
-@@ -9233,7 +9191,7 @@
+@@ -9225,7 +9183,7 @@
      
        <dependlist>
          server_installer_common_util server_installer_common_hxarchive server_installer_common_uninstall server_installer_common common_runtime
@@ -313,7 +313,7 @@
        </dependlist>
      </module>
  
-@@ -9560,7 +9518,7 @@
+@@ -9552,7 +9510,7 @@
      developers should have the following line in their .buildrc file:
      SetSDKPath("wtlce", "/path/to/wtlcesdk")
      See BUILD_ROOT/build/doc/buildrc.html for more
