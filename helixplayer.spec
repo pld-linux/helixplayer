@@ -2,7 +2,7 @@ Summary:	The Helix Player - Helix Community's open source media player for consu
 Summary(pl):	Helix Player - otwarty odtwarzacz multimediów Helix Community dla u¿ytkowników
 Name:		helixplayer
 Version:	1.0.6
-Release:	2
+Release:	3
 License:	RPSL or GPL v2+
 Group:		Applications/Multimedia
 #Source0Download: https://helixcommunity.org/project/showfiles.php?group_id=154
@@ -54,6 +54,8 @@ sed -i -e "s/'gcc'/'%{__cc}'/;s/'g++'/'%{__cxx}'/;s/'-O2'/'%{rpmcflags}'/" build
 echo 'SetSDKPath("oggvorbissdk", "%{_prefix}")' > buildrc
 export BUILDRC=`pwd`/buildrc
 export BUILD_ROOT=`pwd`/build
+# make threads - maybe parse make -j?
+export RIBOSOME_THREADS=1
 PATH="$PATH:`pwd`/build/bin"
 python build/bin/build \
 	-m hxplay_gtk_release \
