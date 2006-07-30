@@ -1,5 +1,5 @@
-#
-# TODO: add browser-plugin mechanism
+# TODO
+#   - merge with RealPlayer.spec
 #
 Summary:	The Helix Player - Helix Community's open source media player for consumers
 Summary(pl):	Helix Player - otwarty odtwarzacz multimediów Helix Community dla u¿ytkowników
