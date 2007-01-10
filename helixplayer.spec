@@ -1,11 +1,8 @@
-# TODO
-# - add browser-plugin mechanism
-#
 Summary:	The Helix Player - Helix Community's open source media player for consumers
 Summary(pl):	Helix Player - otwarty odtwarzacz multimediów Helix Community dla u¿ytkowników
 Name:		helixplayer
 Version:	1.0.6
-Release:	3
+Release:	4
 License:	RPSL or GPL v2+
 Group:		Applications/Multimedia
 #Source0Download: https://helixcommunity.org/project/showfiles.php?group_id=154
@@ -23,6 +20,7 @@ BuildRequires:	libvorbis-devel
 BuildRequires:	pkgconfig
 BuildRequires:	python
 BuildRequires:	python-modules
+BuildRequires:	rpmbuild(macros) >= 1.357
 BuildRequires:	sed >= 4.0
 BuildRequires:	zlib-devel >= 1.1.4
 Provides:	helix-core
@@ -39,6 +37,17 @@ consumers.
 %description -l pl
 Helix Player to odtwarzacz multimediów Helix Community z otwartymi
 ¼ród³ami przeznaczony dla u¿ytkowników koñcowych.
+
+%package -n browser-plugin-%{name}
+Summary:	Helix Player plugin for WWW browsers
+Group:		Applications/Multimedia
+Requires:	%{name} = %{version}-%{release}
+Requires:	browser-plugins >= 2.0
+Requires:	browser-plugins(%{_target_base_arch})
+Conflicts:	helixplayer < 1.0.6-3.1
+
+%description -n browser-plugin-%{name}
+Helix Player plugin for WWW browsers.
 
 %prep
 %setup -q -n hxplay-%{version}
@@ -75,14 +84,24 @@ rm -rf $RPM_BUILD_ROOT%{_helixplayerdir}/Bin
 rm -rf $RPM_BUILD_ROOT%{_helixplayerdir}/postinst
 install player/installer/archive/temp/share/hxplay.desktop $RPM_BUILD_ROOT%{_desktopdir}
 install player/installer/archive/temp/share/hxplay.png $RPM_BUILD_ROOT%{_pixmapsdir}
-install -d $RPM_BUILD_ROOT%{_libdir}/mozilla/plugins
-ln -sf ../../%{name}/mozilla/nphelix.so $RPM_BUILD_ROOT%{_libdir}/mozilla/plugins/nphelix.so
-ln -sf ../../%{name}/mozilla/nphelix.xpt $RPM_BUILD_ROOT%{_libdir}/mozilla/plugins/nphelix.xpt
+
+install -d $RPM_BUILD_ROOT%{_browserpluginsdir}
+mv $RPM_BUILD_ROOT{%{_libdir}/%{name}/mozilla,%{_browserpluginsdir}}/nphelix.so
+mv $RPM_BUILD_ROOT{%{_libdir}/%{name}/mozilla,%{_browserpluginsdir}}/nphelix.xpt
+
 sed -i -e "s%#[ \t]*HELIX_LIBS[ \t]*=.*%HELIX_LIBS=%{_helixplayerdir} ; export HELIX_LIBS%" $RPM_BUILD_ROOT%{_helixplayerdir}/hxplay
 ln -sf %{_libdir}/%{name}/hxplay $RPM_BUILD_ROOT%{_bindir}/hxplay
 
 %clean
 rm -rf $RPM_BUILD_ROOT
+
+%post -n browser-plugin-%{name}
+%update_browser_plugins
+
+%postun -n browser-plugin-%{name}
+if [ "$1" = 0 ]; then
+	%update_browser_plugins
+fi
 
 %files
 %defattr(644,root,root,755)
@@ -93,12 +112,15 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_helixplayerdir}/codecs
 %attr(755,root,root) %{_helixplayerdir}/common
 %attr(755,root,root) %{_helixplayerdir}/lib
-%attr(755,root,root) %{_helixplayerdir}/mozilla
-%attr(755,root,root) %{_helixplayerdir}/plugins
+%dir %{_helixplayerdir}/plugins
+%attr(755,root,root) %{_helixplayerdir}/plugins/*.so
 %{_helixplayerdir}/share
 %{_helixplayerdir}/README
 %{_helixplayerdir}/LICENSE
-%attr(755,root,root) %{_libdir}/mozilla/plugins/nphelix.so
-%attr(755,root,root) %{_libdir}/mozilla/plugins/nphelix.xpt
 %{_desktopdir}/hxplay.desktop
 %{_pixmapsdir}/hxplay.png
+
+%files -n browser-plugin-%{name}
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_browserpluginsdir}/nphelix.so
+%{_browserpluginsdir}/nphelix.xpt
