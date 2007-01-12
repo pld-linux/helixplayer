@@ -40,6 +40,7 @@ Helix Player to odtwarzacz multimediów Helix Community z otwartymi
 
 %package -n browser-plugin-%{name}
 Summary:	Helix Player plugin for WWW browsers
+Summary(pl):	Helix Player jako wtyczka dla przegl±darek WWW
 Group:		Applications/Multimedia
 Requires:	%{name} = %{version}-%{release}
 Requires:	browser-plugins >= 2.0
@@ -48,6 +49,9 @@ Conflicts:	helixplayer < 1.0.6-3.1
 
 %description -n browser-plugin-%{name}
 Helix Player plugin for WWW browsers.
+
+%description -n browser-plugin-%{name} -l pl
+Helix Player jako wtyczka dla przegl±darek WWW.
 
 %prep
 %setup -q -n hxplay-%{version}
