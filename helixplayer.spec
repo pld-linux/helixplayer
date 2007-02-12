@@ -1,5 +1,5 @@
 Summary:	The Helix Player - Helix Community's open source media player for consumers
-Summary(pl):	Helix Player - otwarty odtwarzacz multimedi體 Helix Community dla u縴tkownik體
+Summary(pl.UTF-8):   Helix Player - otwarty odtwarzacz multimedi贸w Helix Community dla u偶ytkownik贸w
 Name:		helixplayer
 Version:	1.0.6
 Release:	4
@@ -34,13 +34,13 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 The Helix Player is the Helix Community's open source media player for
 consumers.
 
-%description -l pl
-Helix Player to odtwarzacz multimedi體 Helix Community z otwartymi
-紃骴砤mi przeznaczony dla u縴tkownik體 ko馽owych.
+%description -l pl.UTF-8
+Helix Player to odtwarzacz multimedi贸w Helix Community z otwartymi
+藕r贸d艂ami przeznaczony dla u偶ytkownik贸w ko艅cowych.
 
 %package -n browser-plugin-%{name}
 Summary:	Helix Player plugin for WWW browsers
-Summary(pl):	Helix Player jako wtyczka dla przegl眃arek WWW
+Summary(pl.UTF-8):   Helix Player jako wtyczka dla przegl膮darek WWW
 Group:		Applications/Multimedia
 Requires:	%{name} = %{version}-%{release}
 Requires:	browser-plugins >= 2.0
@@ -50,8 +50,8 @@ Conflicts:	helixplayer < 1.0.6-3.1
 %description -n browser-plugin-%{name}
 Helix Player plugin for WWW browsers.
 
-%description -n browser-plugin-%{name} -l pl
-Helix Player jako wtyczka dla przegl眃arek WWW.
+%description -n browser-plugin-%{name} -l pl.UTF-8
+Helix Player jako wtyczka dla przegl膮darek WWW.
 
 %prep
 %setup -q -n hxplay-%{version}
