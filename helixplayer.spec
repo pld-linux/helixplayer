@@ -1,5 +1,5 @@
 Summary:	The Helix Player - Helix Community's open source media player for consumers
-Summary(pl.UTF-8):   Helix Player - otwarty odtwarzacz multimediów Helix Community dla użytkowników
+Summary(pl.UTF-8):	Helix Player - otwarty odtwarzacz multimediów Helix Community dla użytkowników
 Name:		helixplayer
 Version:	1.0.6
 Release:	4
@@ -40,7 +40,7 @@ Helix Player to odtwarzacz multimediów Helix Community z otwartymi
 
 %package -n browser-plugin-%{name}
 Summary:	Helix Player plugin for WWW browsers
-Summary(pl.UTF-8):   Helix Player jako wtyczka dla przeglądarek WWW
+Summary(pl.UTF-8):	Helix Player jako wtyczka dla przeglądarek WWW
 Group:		Applications/Multimedia
 Requires:	%{name} = %{version}-%{release}
 Requires:	browser-plugins >= 2.0
