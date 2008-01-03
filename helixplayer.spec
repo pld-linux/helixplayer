@@ -14,6 +14,8 @@ Source0:	https://helixcommunity.org/frs/download.php/2490/hxplay-%{version}-sour
 Patch0:		%{name}-system-libs.patch
 Patch1:		%{name}-desktop.patch
 Patch2:		%{name}-cflags.patch
+Patch3:		%{name}-sem_t.patch
+Patch4:		%{name}-bzip2.patch
 URL:		https://player.helixcommunity.org/
 BuildRequires:	gtk+2-devel >= 2.0.0
 BuildRequires:	libogg-devel
@@ -60,12 +62,16 @@ Helix Player jako wtyczka dla przeglądarek WWW.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
+%patch4 -p1
 
 # expat is modified (based on mozilla?)
 # libjpeg is compiled with different config (BGRx instead of RGB)
 # so only these can be replaced by system ones
 #rm -rf common/import/{bzip2,zlib} datatype/image/png/import/libpng
 
+#mkdir -p common/import/bzip2/rel/bzip2
+#ln -s common/import/bzip2/rel/bzip2
 
 # duplicate. just avoid confusion and remove it
 rm build/BIF/build.bif
@@ -110,24 +116,30 @@ python build/bin/build.py \
 	-P helix-client-all-defines-free \
 	-p green -v -n \
 	%{!?debug:-t release} \
-	player_gtk player_plugin
+	player_all
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_libdir}/%{name},%{_pixmapsdir},%{_desktopdir},%{_bindir}}
+install -d $RPM_BUILD_ROOT{%{_libdir}/%{name}/share,%{_pixmapsdir},%{_desktopdir},%{_bindir}}
 
-cp -a player/installer/archive/temp/* $RPM_BUILD_ROOT%{_libdir}/%{name}
-rm -rf $RPM_BUILD_ROOT%{_libdir}/%{name}/Bin
-rm -rf $RPM_BUILD_ROOT%{_libdir}/%{name}/postinst
+cp -a player/installer/archive/temp/{codecs,common,lib,plugins} $RPM_BUILD_ROOT%{_libdir}/%{name}
+install player/installer/archive/temp/hxplay.bin $RPM_BUILD_ROOT%{_libdir}/%{name}
+cp -a player/installer/archive/temp/share/locale $RPM_BUILD_ROOT%{_datadir}
+cp -a player/installer/archive/temp/share/{default,icons,hxplay*,*.css} $RPM_BUILD_ROOT%{_libdir}/%{name}/share
 install player/installer/common/hxplay.desktop $RPM_BUILD_ROOT%{_desktopdir}
 install player/app/gtk/res/hxplay.png $RPM_BUILD_ROOT%{_pixmapsdir}
 
 install -d $RPM_BUILD_ROOT%{_browserpluginsdir}
-mv $RPM_BUILD_ROOT{%{_libdir}/%{name}/mozilla,%{_browserpluginsdir}}/nphelix.so
-mv $RPM_BUILD_ROOT{%{_libdir}/%{name}/mozilla,%{_browserpluginsdir}}/nphelix.xpt
+cp -a release/nphelix.* $RPM_BUILD_ROOT%{_browserpluginsdir}
 
-sed -i -e "s,#[ \t]*HELIX_LIBS[ \t]*=.*,HELIX_LIBS=%{_libdir}/%{name}; export HELIX_LIBS," $RPM_BUILD_ROOT%{_libdir}/%{name}/hxplay
+sed -e "s,#[ \t]*HELIX_LIBS[ \t]*=.*,HELIX_LIBS=%{_libdir}/%{name}; export HELIX_LIBS," \
+	player/installer/archive/temp/hxplay > $RPM_BUILD_ROOT%{_libdir}/%{name}/hxplay
+chmod a+rx $RPM_BUILD_ROOT%{_libdir}/%{name}/hxplay
 ln -sf %{_libdir}/%{name}/hxplay $RPM_BUILD_ROOT%{_bindir}/hxplay
+
+%find_lang player
+%find_lang widget
+cat player.lang widget.lang > %{name}.lang
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -140,7 +152,7 @@ if [ "$1" = 0 ]; then
 	%update_browser_plugins
 fi
 
-%files
+%files -f %{name}.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/hxplay
 %dir %{_libdir}/%{name}
@@ -152,8 +164,6 @@ fi
 %dir %{_libdir}/%{name}/plugins
 %attr(755,root,root) %{_libdir}/%{name}/plugins/*.so
 %{_libdir}/%{name}/share
-%{_libdir}/%{name}/README
-%{_libdir}/%{name}/LICENSE
 %{_desktopdir}/hxplay.desktop
 %{_pixmapsdir}/hxplay.png
 
