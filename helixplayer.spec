@@ -1,16 +1,19 @@
+# NOTE
+# - worth reading proably: https://player.helixcommunity.org/2004/developer/gtk/quickstart
+#
 Summary:	The Helix Player - Helix Community's open source media player for consumers
 Summary(pl.UTF-8):	Helix Player - otwarty odtwarzacz multimediów Helix Community dla użytkowników
 Name:		helixplayer
-Version:	1.0.6
-Release:	5
+Version:	1.0.9
+Release:	0.1
 License:	RPSL or GPL v2+
 Group:		Applications/Multimedia
-#Source0Download: https://helixcommunity.org/project/showfiles.php?group_id=154
-Source0:	https://helixcommunity.org/download.php/1585/hxplay-%{version}.tar.bz2
-# Source0-md5:	824183372ea84570444fe946b43afac4
+# Source0Download: https://helixcommunity.org/frs/?group_id=154
+Source0:	https://helixcommunity.org/frs/download.php/2490/hxplay-%{version}-source.tar.bz2
+# Source0-md5:	346eb87dea413562875aca69a05370ec
 Patch0:		%{name}-system-libs.patch
-Patch1:		%{name}-morearchs.patch
-Patch2:		%{name}-desktop.patch
+Patch1:		%{name}-desktop.patch
+Patch2:		%{name}-cflags.patch
 URL:		https://player.helixcommunity.org/
 BuildRequires:	gtk+2-devel >= 2.0.0
 BuildRequires:	libogg-devel
@@ -27,8 +30,6 @@ Provides:	helix-core
 # i386 lacks atomic add instruction
 ExcludeArch:	i386
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-
-%define		_helixplayerdir %{_libdir}/%{name}
 
 %description
 The Helix Player is the Helix Community's open source media player for
@@ -55,6 +56,7 @@ Helix Player jako wtyczka dla przeglądarek WWW.
 
 %prep
 %setup -q -n hxplay-%{version}
+%{__sed} -i -e 's,\r$,,' build/build/BIF/build.bif
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
@@ -62,38 +64,69 @@ Helix Player jako wtyczka dla przeglądarek WWW.
 # expat is modified (based on mozilla?)
 # libjpeg is compiled with different config (BGRx instead of RGB)
 # so only these can be replaced by system ones
-rm -rf common/import/{bzip2,zlib} datatype/image/png/import/libpng
+#rm -rf common/import/{bzip2,zlib} datatype/image/png/import/libpng
 
-sed -i -e "s/'gcc'/'%{__cc}'/;s/'g++'/'%{__cxx}'/;s/'-O2'/'%{rpmcflags}'/" build/umakecf/gcc.cf
+
+# duplicate. just avoid confusion and remove it
+rm build/BIF/build.bif
+
+echo 'SetSDKPath("oggvorbissdk", "/usr")' > buildrc
 
 %build
-echo 'SetSDKPath("oggvorbissdk", "%{_prefix}")' > buildrc
-export BUILDRC=`pwd`/buildrc
-export BUILD_ROOT=`pwd`/build
+%ifarch %{ix86}
+export SYSTEM_ID=linux-2.6-glibc23-i386
+%endif
+%ifarch %{x8664}
+export SYSTEM_ID=linux-2.6-glibc23-amd64
+%endif
+%ifarch sparc sparc64
+export SYSTEM_ID=linux-2.2-libc6-sparc
+%endif
+%ifarch ppc
+export SYSTEM_ID=linux-2.2-libc6-gcc32-powerpc
+%endif
+%ifarch ppc64
+export SYSTEM_ID=linux-powerpc64
+%endif
+%ifarch alpha
+export SYSTEM_ID=linux-2.0-libc6-alpha-gcc2.95
+%endif
+
+export CC="%{__cc}"
+export CFLAGS="%{rpmcflags}"
+export CXX="%{__cxx}"
+export CXXFLAGS="%{rpmcxxflags}"
+export LD="%{__cxx}"
+export LDFLAGS="%{rpmldflags}"
+
+pwd=$(pwd)
+export BUILDRC=$pwd/buildrc
+export BUILD_ROOT=$pwd/build
 # make threads - maybe parse make -j?
 export RIBOSOME_THREADS=1
-PATH="$PATH:`pwd`/build/bin"
-python build/bin/build \
+PATH="$PATH:$pwd/build/bin"
+python build/bin/build.py \
 	-m hxplay_gtk_release \
 	-P helix-client-all-defines-free \
+	-p green -v -n \
 	%{!?debug:-t release} \
-	player_all
+	player_gtk player_plugin
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_helixplayerdir},%{_pixmapsdir},%{_desktopdir},%{_bindir}}
+install -d $RPM_BUILD_ROOT{%{_libdir}/%{name},%{_pixmapsdir},%{_desktopdir},%{_bindir}}
 
-cp -a player/installer/archive/temp/* $RPM_BUILD_ROOT%{_helixplayerdir}
-rm -rf $RPM_BUILD_ROOT%{_helixplayerdir}/Bin
-rm -rf $RPM_BUILD_ROOT%{_helixplayerdir}/postinst
-install player/installer/archive/temp/share/hxplay.desktop $RPM_BUILD_ROOT%{_desktopdir}
-install player/installer/archive/temp/share/hxplay.png $RPM_BUILD_ROOT%{_pixmapsdir}
+cp -a player/installer/archive/temp/* $RPM_BUILD_ROOT%{_libdir}/%{name}
+rm -rf $RPM_BUILD_ROOT%{_libdir}/%{name}/Bin
+rm -rf $RPM_BUILD_ROOT%{_libdir}/%{name}/postinst
+install player/installer/common/hxplay.desktop $RPM_BUILD_ROOT%{_desktopdir}
+install player/app/gtk/res/hxplay.png $RPM_BUILD_ROOT%{_pixmapsdir}
 
 install -d $RPM_BUILD_ROOT%{_browserpluginsdir}
 mv $RPM_BUILD_ROOT{%{_libdir}/%{name}/mozilla,%{_browserpluginsdir}}/nphelix.so
 mv $RPM_BUILD_ROOT{%{_libdir}/%{name}/mozilla,%{_browserpluginsdir}}/nphelix.xpt
 
-sed -i -e "s%#[ \t]*HELIX_LIBS[ \t]*=.*%HELIX_LIBS=%{_helixplayerdir} ; export HELIX_LIBS%" $RPM_BUILD_ROOT%{_helixplayerdir}/hxplay
+sed -i -e "s,#[ \t]*HELIX_LIBS[ \t]*=.*,HELIX_LIBS=%{_libdir}/%{name}; export HELIX_LIBS," $RPM_BUILD_ROOT%{_libdir}/%{name}/hxplay
 ln -sf %{_libdir}/%{name}/hxplay $RPM_BUILD_ROOT%{_bindir}/hxplay
 
 %clean
@@ -110,17 +143,17 @@ fi
 %files
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/hxplay
-%dir %{_helixplayerdir}
-%attr(755,root,root) %{_helixplayerdir}/hxplay
-%attr(755,root,root) %{_helixplayerdir}/hxplay.bin
-%attr(755,root,root) %{_helixplayerdir}/codecs
-%attr(755,root,root) %{_helixplayerdir}/common
-%attr(755,root,root) %{_helixplayerdir}/lib
-%dir %{_helixplayerdir}/plugins
-%attr(755,root,root) %{_helixplayerdir}/plugins/*.so
-%{_helixplayerdir}/share
-%{_helixplayerdir}/README
-%{_helixplayerdir}/LICENSE
+%dir %{_libdir}/%{name}
+%attr(755,root,root) %{_libdir}/%{name}/hxplay
+%attr(755,root,root) %{_libdir}/%{name}/hxplay.bin
+%attr(755,root,root) %{_libdir}/%{name}/codecs
+%attr(755,root,root) %{_libdir}/%{name}/common
+%attr(755,root,root) %{_libdir}/%{name}/lib
+%dir %{_libdir}/%{name}/plugins
+%attr(755,root,root) %{_libdir}/%{name}/plugins/*.so
+%{_libdir}/%{name}/share
+%{_libdir}/%{name}/README
+%{_libdir}/%{name}/LICENSE
 %{_desktopdir}/hxplay.desktop
 %{_pixmapsdir}/hxplay.png
 
