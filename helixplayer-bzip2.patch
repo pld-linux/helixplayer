@@ -1,0 +1,12 @@
+--- hxplay-1.0.9/installer/common/scripts/installer.py~	2004-07-09 05:02:53.000000000 +0300
++++ hxplay-1.0.9/installer/common/scripts/installer.py	2008-01-04 00:06:50.607531491 +0200
+@@ -218,8 +218,7 @@
+     def SetArchiveType(self, archive_type):
+         self.archive_type = archive_type
+         if (self.archive_type == "bz2"):
+-            self.archive_prog = os.path.join(project.bzip2_path,
+-                self.inst_output_dir, "bzip2")
++            self.archive_prog = "bzip2"
+ 
+     #######################################################################
+     # CleanTempFiles: clean up temp files
