@@ -1,0 +1,14 @@
+--- hxplay-1.0.9/common/system/pub/platform/unix/pthreadthreads.h~	2008-01-03 23:30:17.419468778 +0200
++++ hxplay-1.0.9/common/system/pub/platform/unix/pthreadthreads.h	2008-01-03 23:30:18.859413683 +0200
+@@ -102,10 +102,7 @@
+ 
+ #ifndef _MAC_UNIX
+ 
+-struct HXsem_t : public sem_t
+-{
+-    char padding[64]; /* Flawfinder: ignore */ // different linux versions have different binary reps blechhhh!
+-};
++#define HXsem_t sem_t
+ 
+ //=======================================================================
+ //
