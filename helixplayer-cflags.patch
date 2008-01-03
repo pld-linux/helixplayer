@@ -1,0 +1,26 @@
+--- hxplay-1.0.9/build/umakecf/gcc.cf~	2008-01-03 20:42:36.534412828 +0200
++++ hxplay-1.0.9/build/umakecf/gcc.cf	2008-01-03 21:37:03.329420514 +0200
+@@ -192,7 +192,22 @@
+     def make_lib_static(self, lib):
+         return "-Wl,-Bstatic "+lib+" -Wl,Bdynamic"
+ 
+-platform.link = GCCLinker()
++platform.link = ld = GCCLinker()
++
++
++# override from environ
++if os.environ.has_key("CC"):
++    cc.cmd = os.environ['CC']
++if os.environ.has_key("CXX"):
++    cxx.cmd = os.environ['CXX']
++if os.environ.has_key("LD"):
++    ld.ldcmd = os.environ['LD']
++if os.environ.has_key("CFLAGS"):
++    cc.args['release'] = os.environ['CFLAGS']
++if os.environ.has_key("CXXFLAGS"):
++    cxx.args['release'] = os.environ['CXXFLAGS']
++if os.environ.has_key("LDFLAGS"):
++    ld.ldflags = os.environ['LDFLAGS']
+ 
+ def DisableRTTIIfNecessary() :
+         global platform
