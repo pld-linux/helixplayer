@@ -6,7 +6,7 @@
          if (self.archive_type == "bz2"):
 -            self.archive_prog = os.path.join(project.bzip2_path,
 -                self.inst_output_dir, "bzip2")
-+            self.archive_prog = "bzip2"
++            self.archive_prog = "/usr/bin/bzip2"
  
      #######################################################################
      # CleanTempFiles: clean up temp files
