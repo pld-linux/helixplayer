@@ -120,7 +120,7 @@ python build/bin/build.py \
 	-P helix-client-all-defines-free \
 	-p green -v -n \
 	%{!?debug:-t release} \
-	player_all
+	player_installer_archive
 
 %install
 rm -rf $RPM_BUILD_ROOT
