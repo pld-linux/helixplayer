@@ -11,6 +11,15 @@
  
 --- hxplay-1.0.9/audio/fixptutil/pub/math64.h.orig	2008-01-13 20:53:13.772120000 +0100
 +++ hxplay-1.0.9/audio/fixptutil/pub/math64.h	2008-01-13 21:36:57.629645378 +0100
+@@ -139,7 +139,7 @@
+     __asm__ volatile ("imull %2\n\t"
+                       "idivl %3\n"
+                       : "+a,a,a,a" (x)
+-                      : "%0,%0,%0,%0" (x), "m,r,m,r" (y), "m,m,r,r" (z)
++                      : "a,a,a,a" (x), "m,r,m,r" (y), "m,m,r,r" (z)
+                       : "edx") ;    
+     return x ;
+ }
 @@ -152,7 +152,7 @@
         memory, the second from from a register. Both return the result in eax,edx
         and are commutative in the arguments, one of which needs to be in eax when we
@@ -18,5 +27,32 @@
 -    __asm__ volatile ("imull %3" : "=d,d" (z), "+a,a" (x): "%1,1" (x), "m,r" (y)) ;
 +    __asm__ volatile ("imull %3" : "=d,d" (z), "+a,a" (x): "a,a" (x), "m,r" (y)) ;
      return z ;
+ }
+ 
+@@ -161,7 +161,7 @@
+ {
+     int zhi ;
+     __asm__ volatile ("imull %3\n\t"
+-                      "shrdl $31,%1,%0": "+a,a" (x), "=d,d" (zhi) : "%0,%0" (x), "m,r" (y)) ;
++                      "shrdl $31,%1,%0": "+a,a" (x), "=d,d" (zhi) : "a,a" (x), "m,r" (y)) ;
+     return x ;
+ }
+ 
+@@ -170,7 +170,7 @@
+ {
+     int zhi ;
+     __asm__ volatile ("imull %3\n\t"
+-                      "shrdl $30,%1,%0" : "+a,a" (x), "=d,d" (zhi) : "%0,%0" (x), "m,r" (y)) ;
++                      "shrdl $30,%1,%0" : "+a,a" (x), "=d,d" (zhi) : "a,a" (x), "m,r" (y)) ;
+     return x ;
+ }
+ 
+@@ -179,7 +179,7 @@
+ {
+     int zhi ;
+     __asm__ volatile ("imull %3\n\t"
+-                      "shrdl %%cl,%1,%0" : "+a,a" (x), "=d,d" (zhi) : "%0,%0" (x), "m,r" (y), "c,c" (n)) ;
++                      "shrdl %%cl,%1,%0" : "+a,a" (x), "=d,d" (zhi) : "a,a" (x), "m,r" (y), "c,c" (n)) ;
+     return x ;
  }
  
