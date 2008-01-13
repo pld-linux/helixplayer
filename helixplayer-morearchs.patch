@@ -55,15 +55,6 @@
 #         set_platform('linux-2.4-libc6-ia64')
 --- hxplay-1.0.5/audio/fixptutil/pub/math64.h.orig	2004-09-17 20:22:38.000000000 +0200
 +++ hxplay-1.0.5/audio/fixptutil/pub/math64.h	2005-11-03 21:34:55.000000000 +0100
-@@ -124,7 +124,7 @@
- // GCC / i386
- ///////////////////////////////////////////////////////////////////////////////////////
- 
--#if defined(__GNUC__) && defined(__i386__) && !defined(_NO_GNU_AS)
-+#if defined(__GNUC__) && (defined(__i386__) || defined(__x86_64__)) && !defined(_NO_GNU_AS)
- 
- #define HAVE_PLATFORM_MACROS
- 
 @@ -250,7 +250,7 @@
  #endif
  #endif // defined(__sparc)
@@ -78,7 +69,7 @@
  #endif
  
 +/* generic for LP64 platforms */
-+#if defined(__alpha__) || defined(__ia64__)
++#if defined(__alpha__) || defined(__ia64__) || defined(__x86_64__)
 +static inline int MulDiv64(int a, int b, int c)
 +{
 +	long t = (long)((long)a * (long)b) ;
