@@ -16,8 +16,9 @@ Patch1:		%{name}-desktop.patch
 Patch2:		%{name}-cflags.patch
 Patch3:		%{name}-sem_t.patch
 Patch4:		%{name}-bzip2.patch
+Patch5:		%{name}-morearchs.patch
 URL:		https://player.helixcommunity.org/
-BuildRequires:	gtk+2-devel >= 2.0.0
+BuildRequires:	gtk+2-devel >= 1:2.0.0
 BuildRequires:	libogg-devel
 BuildRequires:	libpng-devel >= 2:1.2.5
 BuildRequires:	libtheora-devel
@@ -64,6 +65,7 @@ Helix Player jako wtyczka dla przeglądarek WWW.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%patch5 -p1
 
 # expat is modified (based on mozilla?)
 # libjpeg is compiled with different config (BGRx instead of RGB)
