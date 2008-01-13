@@ -99,7 +99,7 @@ export SYSTEM_ID=linux-2.2-libc6-gcc32-powerpc
 export SYSTEM_ID=linux-powerpc64
 %endif
 %ifarch alpha
-export SYSTEM_ID=linux-2.0-libc6-alpha-gcc2.95
+export SYSTEM_ID=linux-2.2-libc6-gcc32-alpha
 %endif
 
 export CC="%{__cc}"
