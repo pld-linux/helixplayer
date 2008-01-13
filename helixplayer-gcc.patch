@@ -1,0 +1,11 @@
+--- hxplay-1.0.9/player/hxclientkit/src/CHXClientSiteSupplier.h.orig	2004-07-09 03:49:47.000000000 +0200
++++ hxplay-1.0.9/player/hxclientkit/src/CHXClientSiteSupplier.h	2008-01-13 19:55:11.873783641 +0100
+@@ -63,6 +63,8 @@
+ 
+ #include "HXClientCallbacks.h"
+ 
++class CHXClientSite;
++
+ class CHXFlatArray;
+ _INTERFACE IHXPlayer;
+ 
