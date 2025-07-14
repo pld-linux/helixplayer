@@ -61,13 +61,13 @@ Helix Player jako wtyczka dla przeglądarek WWW.
 %prep
 %setup -q -n hxplay-%{version}
 %{__sed} -i -e 's,\r$,,' build/build/BIF/build.bif
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
-%patch5 -p1
-%patch6 -p1
+%patch -P0 -p1
+%patch -P1 -p1
+%patch -P2 -p1
+%patch -P3 -p1
+%patch -P4 -p1
+%patch -P5 -p1
+%patch -P6 -p1
 
 # expat is modified (based on mozilla?)
 # libjpeg is compiled with different config (BGRx instead of RGB)
